@@ -1,3 +1,8 @@
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 import React, { useState, useEffect } from 'react';
 import '../styles/Dashboard.css'; 
 import { useNavigate } from "react-router-dom";
