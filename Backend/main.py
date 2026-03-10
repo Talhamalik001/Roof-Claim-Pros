@@ -13,7 +13,6 @@ from routes.google_auth import router as google_router
 from routes.facebook_auth import router as facebook_router  # Import Facebook router
 from routes.instagram_auth import router as instagram_router
 
-<<<<<<< Updated upstream
 
 load_dotenv()
 
@@ -31,10 +30,9 @@ app.add_middleware(
     allow_headers=headers,
     allow_credentials=credentials,
 )
-=======
+
 # ---------------- CORS ----------------
 
->>>>>>> Stashed changes
 
 secret_key = secrets.token_hex(32)  # Secure, random key
 app.add_middleware(SessionMiddleware, secret_key=secret_key ,  max_age=60)
@@ -44,11 +42,11 @@ app.include_router(auth_router, prefix="/auth")
 app.include_router(google_router, prefix="/google")
 app.include_router(facebook_router, prefix="/facebook")  # Register Facebook router
 app.include_router(instagram_router, prefix="/instagram")
-<<<<<<< Updated upstream
 
 
 
-=======
+
+
 # ---------------- Root Test ----------------
 # Lead schema
 class Lead(BaseModel):
@@ -56,7 +54,7 @@ class Lead(BaseModel):
     contactInfo: str
     propertyAddress: str
     status: str
->>>>>>> Stashed changes
+
 
 # In-memory storage
 leads: List[Lead] = []

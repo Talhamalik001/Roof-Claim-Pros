@@ -35,12 +35,7 @@ def register_user(data: RegisterRequest):
     }
     return {"status": "success"}
 
-# @router.post("/login")
-# def login_user(data: LoginRequest):
-#     user = users_db.get(data.email)
-#     if not user or user["password"] != data.password:
-#         raise HTTPException(status_code=401, detail="Invalid email or password")
-#     return {"status": "success", "firstName": user["firstName"]}
+
 @router.post("/login")
 def login_user(data: LoginRequest, request: Request):
 
@@ -77,4 +72,3 @@ def logout_user(request: Request):
 
 
 
-#12345678QWERqwe!@#$
