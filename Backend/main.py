@@ -47,13 +47,6 @@ app.include_router(instagram_router, prefix="/instagram")
 
 
 
-# ---------------- Root Test ----------------
-# Lead schema
-class Lead(BaseModel):
-    name: str
-    contactInfo: str
-    propertyAddress: str
-    status: str
 
 
 # In-memory storage
