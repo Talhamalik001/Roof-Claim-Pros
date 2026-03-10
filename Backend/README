@@ -1,0 +1,225 @@
+README = """
+# RoofClaimPros CRM
+
+RoofClaimPros CRM is a full-stack application built with **FastAPI (Backend)** and **React (Frontend)**.
+It allows users to create accounts, verify email using OTP, login using OAuth providers, and manage purchased roofing leads.
+
+------------------------------------------------------------
+
+PROJECT OVERVIEW
+
+This project provides:
+
+• Email registration with OTP verification  
+• Login using email and password  
+• OAuth login with Google, Facebook, and Instagram  
+• Lead management dashboard  
+• Add / view / delete leads  
+
+------------------------------------------------------------
+
+SERVER INFORMATION
+
+Backend Server
+
+Framework: FastAPI  
+Runs on: http://127.0.0.1:9000  
+
+Command to run server:
+
+uvicorn main:app --reload --port 9000
+
+
+Frontend Server
+
+Framework: React  
+Runs on: http://localhost:3000  
+
+Command to run frontend:
+
+npm start
+
+------------------------------------------------------------
+
+API BASE URL
+
+All backend APIs run under:
+
+http://127.0.0.1:9000
+
+------------------------------------------------------------
+
+AUTHENTICATION ROUTES
+
+POST /auth/login  
+Login with email and password
+
+POST /auth/register  
+Create new user account
+
+POST /auth/send-otp  
+Send email OTP for verification
+
+POST /auth/verify-otp  
+Verify OTP sent to email
+
+------------------------------------------------------------
+
+OAUTH ROUTES
+
+Google OAuth
+
+GET /google/login
+Starts Google OAuth login flow
+
+GET /google/callback
+Handles Google OAuth callback
+
+
+Facebook OAuth
+
+GET /facebook/login
+Starts Facebook OAuth login flow
+
+GET /facebook/callback
+Handles Facebook OAuth callback
+
+
+Instagram OAuth
+
+GET /instagram/login
+Starts Instagram OAuth login flow
+
+GET /instagram/callback
+Handles Instagram OAuth callback
+
+------------------------------------------------------------
+
+LEADS API
+
+GET /leads
+Fetch all leads
+
+POST /leads
+Create a new lead
+
+DELETE /leads/{lead_index}
+Delete a lead by index
+
+------------------------------------------------------------
+
+PROJECT STRUCTURE
+
+Backend
+
+backend/
+│
+├── main.py
+├── auth/
+│   ├── google_auth.py
+│   ├── facebook_auth.py
+│   ├── instagram_auth.py
+│
+├── routes/
+│   └── leads.py
+│
+├── models/
+│   └── lead_schema.py
+│
+└── .env
+
+
+Frontend
+
+frontend/
+│
+├── src/
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── CreateAccount.jsx
+│   │   ├── VerifyEmail.jsx
+│   │   └── Dashboard.jsx
+│   │
+│   ├── styles/
+│   ├── assets/
+│   └── App.js
+│
+└── .env
+
+------------------------------------------------------------
+
+ENVIRONMENT VARIABLES
+
+Backend .env
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_REDIRECT_URI=
+
+FACEBOOK_CLIENT_ID=
+FACEBOOK_CLIENT_SECRET=
+FACEBOOK_REDIRECT_URI=
+
+INSTAGRAM_CLIENT_ID=
+INSTAGRAM_CLIENT_SECRET=
+INSTAGRAM_REDIRECT_URI=
+
+FRONTEND_BASE_URL=http://localhost:3000
+
+
+Frontend .env
+
+REACT_APP_API_BASE_URL=http://127.0.0.1:9000
+
+------------------------------------------------------------
+
+INSTALLATION
+
+1 Clone the repository
+
+git clone https://github.com/yourusername/roofclaimpros-crm.git
+
+2 Install backend dependencies
+
+cd backend
+pip install -r requirements.txt
+
+3 Run backend server
+
+uvicorn main:app --reload --port 9000
+
+4 Install frontend dependencies
+
+cd frontend
+npm install
+
+5 Run frontend
+
+npm start
+
+------------------------------------------------------------
+
+SECURITY FEATURES
+
+• OAuth authentication  
+• PKCE flow for Google OAuth  
+• Email OTP verification  
+• Environment variable configuration  
+• No hardcoded credentials  
+
+------------------------------------------------------------
+
+FUTURE IMPROVEMENTS
+
+• PostgreSQL database integration  
+• JWT authentication  
+• Role based access control  
+• Docker deployment  
+• Analytics dashboard  
+
+------------------------------------------------------------
+
+Author
+
+RoofClaimPros Development Team
+"""

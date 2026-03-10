@@ -29,7 +29,6 @@ async def send_email_otp(email, otp):
 async def generate_otp(email):
     otp = str(random.randint(100000, 999999))
     otp_store[email] = otp
-    print(f"[DEBUG] OTP for {email}: {otp}")  # Optional console debug
     await send_email_otp(email, otp)
     return otp
 
