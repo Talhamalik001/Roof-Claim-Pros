@@ -18,3 +18,10 @@ class RegisterRequest(BaseModel):
 class LoginRequest(BaseModel):
     email: str
     password: str
+
+# Lead schema
+class Lead(BaseModel):
+    name: str
+    contactInfo: str
+    propertyAddress: str
+    status: str
