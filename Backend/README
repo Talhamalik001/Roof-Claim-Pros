@@ -198,28 +198,3 @@ npm install
 npm start
 
 ------------------------------------------------------------
-
-SECURITY FEATURES
-
-• OAuth authentication  
-• PKCE flow for Google OAuth  
-• Email OTP verification  
-• Environment variable configuration  
-• No hardcoded credentials  
-
-------------------------------------------------------------
-
-FUTURE IMPROVEMENTS
-
-• PostgreSQL database integration  
-• JWT authentication  
-• Role based access control  
-• Docker deployment  
-• Analytics dashboard  
-
-------------------------------------------------------------
-
-Author
-
-RoofClaimPros Development Team
-"""
