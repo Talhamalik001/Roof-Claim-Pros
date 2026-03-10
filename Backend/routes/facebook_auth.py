@@ -4,9 +4,9 @@ from fastapi.responses import RedirectResponse
 
 router = APIRouter()
 
+from config import FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET
+
 # Facebook OAuth client config
-FACEBOOK_CLIENT_ID = "731650043218243"
-FACEBOOK_CLIENT_SECRET = "a102f591b1db8a485dda3d667c0d677a"
 REDIRECT_URI = "http://localhost:9000/facebook/callback"
 
 FACEBOOK_AUTH_URL = "https://www.facebook.com/v12.0/dialog/oauth"

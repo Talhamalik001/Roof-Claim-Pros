@@ -5,9 +5,9 @@ import requests
 
 router = APIRouter()
 
+from config import INSTAGRAM_CLIENT_ID, INSTAGRAM_CLIENT_SECRET
+
 # Instagram OAuth client config
-INSTAGRAM_CLIENT_ID = "731650043218243"  # Use your Instagram Client ID
-INSTAGRAM_CLIENT_SECRET = "a102f591b1db8a485dda3d667c0d677a"  # Use your Instagram Client Secret
 REDIRECT_URI = "http://localhost:9000/instagram/callback"  # Redirect URI for callback
 
 INSTAGRAM_AUTH_URL = "https://api.instagram.com/oauth/authorize"

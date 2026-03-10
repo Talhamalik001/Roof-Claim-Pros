@@ -191,9 +191,9 @@ from starlette.middleware.sessions import SessionMiddleware
 
 router = APIRouter()
 
+from config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
+
 # Google OAuth client config
-GOOGLE_CLIENT_ID = "314093001784-vc7qmmbosom6al9n1mo55blghd5tlscm.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = "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"
 REDIRECT_URI = "http://localhost:9000/google/callback"
 
 CLIENT_CONFIG = {
