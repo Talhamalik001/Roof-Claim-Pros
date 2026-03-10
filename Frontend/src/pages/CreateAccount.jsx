@@ -6,6 +6,8 @@ import apple from '../assets/apple.png';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const CreateAccount = () => {
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ const CreateAccount = () => {
     try {
       setLoading(true);
 
-      await axios.post('http://127.0.0.1:9000/auth/send-otp', { email });
+      await axios.post(`${API_BASE_URL}/auth/send-otp`, { email });
 
       alert('OTP sent to your email!');
 
@@ -49,6 +51,10 @@ const CreateAccount = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = `${API_BASE_URL}/google/login`;
   };
 
   return (
@@ -117,7 +123,6 @@ const CreateAccount = () => {
           </button>
         </form>
 
-        {/* 👇 Sign In Link */}
         <p style={{ marginTop: "15px", textAlign: "center" }}>
           Already have an account?{" "}
           <span
@@ -129,7 +134,7 @@ const CreateAccount = () => {
         </p>
 
         <div className="social-buttons">
-          <button className="social-btn google-btn">
+          <button className="social-btn google-btn" onClick={handleGoogleLogin}>
             <img src={google} alt="google" />
           </button>
 

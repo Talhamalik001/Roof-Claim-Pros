@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -14,36 +16,39 @@ function Login() {
 
   // ------------------ Google OAuth ------------------
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:9000/google/login";  // Redirect to Google OAuth
+    window.location.href = `${API_BASE_URL}/google/login`;
   };
-const handleInstagramLogin = () => {
-    window.location.href = "http://localhost:9000/instagram/login";  // Redirect to Instagram OAuth
+
+  // ------------------ Instagram OAuth ------------------
+  const handleInstagramLogin = () => {
+    window.location.href = `${API_BASE_URL}/instagram/login`;
   };
+
   // ------------------ Facebook OAuth ------------------
-const handleFacebookLogin = () => {
-  window.location.href = "http://localhost:9000/facebook/login";  // Redirect to Facebook OAuth route
-};
+  const handleFacebookLogin = () => {
+    window.location.href = `${API_BASE_URL}/facebook/login`;
+  };
+
   // ------------------ Normal Email Login ------------------
   const handleLogin = async () => {
     if (!email || !password) {
       alert("Please fill both fields");
       return;
     }
-// #rahafi5351@him6.com
+
     try {
       setLoading(true);
-      // const res = await axios.post("http://127.0.0.1:9000/auth/login", { email, password });
+
       const res = await axios.post(
-  "http://127.0.0.1:9000/auth/login",
-  { email, password },
-  { withCredentials: true }
-);
+        `${API_BASE_URL}/auth/login`,
+        { email, password },
+        { withCredentials: true }
+      );
 
       if (res.data.status === "success") {
         alert(`Welcome ${res.data.firstName}!`);
         navigate("/notification");
       }
-      // lemur9643513@aminating.com
 
     } catch (err) {
       console.error(err);
@@ -73,7 +78,7 @@ const handleFacebookLogin = () => {
             onChange={e => setEmail(e.target.value)} 
           />
         </div>
-{/* 12345678QWERqwe!@#$ */}
+
         <div className="input-group">
           <span>🔒</span>
           <input 
@@ -112,10 +117,12 @@ const handleFacebookLogin = () => {
           <button onClick={handleGoogleLogin}>
             <img src={google} alt="google" />
           </button>
+
           <button onClick={handleFacebookLogin}>
             <img src={facebook} alt="facebook" />
           </button>
-         <button onClick={handleInstagramLogin}>
+
+          <button onClick={handleInstagramLogin}>
             <img src={apple} alt="instagram" />
           </button>
         </div>

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../styles/Dashboard.css'; 
 import { useNavigate } from "react-router-dom";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const Dashboard = () => {
 
   const navigate = useNavigate();
@@ -15,7 +17,6 @@ const Dashboard = () => {
   const [selectedLead, setSelectedLead] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // NEW STATES
   const [showAddModal, setShowAddModal] = useState(false);
 
   const [newLead, setNewLead] = useState({
@@ -29,7 +30,7 @@ const Dashboard = () => {
   useEffect(() => {
 
     const fetchLeads = () => {
-      fetch("http://127.0.0.1:9000/leads")
+      fetch(`${API_BASE_URL}/leads`)
       .then(res => res.json())
       .then(data => setLeads(data))
       .catch(err => console.error(err));
@@ -48,7 +49,7 @@ const Dashboard = () => {
 
     try{
 
-      await fetch(`http://127.0.0.1:9000/leads/${index}`,{
+      await fetch(`${API_BASE_URL}/leads/${index}`,{
         method:"DELETE"
       });
 
@@ -66,7 +67,7 @@ const Dashboard = () => {
 
     try{
 
-      await fetch("http://127.0.0.1:9000/leads",{
+      await fetch(`${API_BASE_URL}/leads`,{
 
         method:"POST",
 
@@ -115,8 +116,6 @@ const Dashboard = () => {
 
     <div className="dashboard-container">
 
-      {/* Sidebar */}
-
       <div className="sidebar">
 
         <div className="sidebar-header">
@@ -144,8 +143,6 @@ const Dashboard = () => {
       </div>
 
 
-      {/* Main */}
-
       <div className="main-content">
 
         {activeTab === 'leads' && (
@@ -156,15 +153,9 @@ const Dashboard = () => {
 
             <p>Manage and track your purchased leads and their progress</p>
 
-
-            {/* ADD BUTTON */}
-
             <button className="add-btn" onClick={()=>setShowAddModal(true)}>
               + Add Lead
             </button>
-
-
-            {/* Search */}
 
             <div className="search-filter">
 
@@ -174,7 +165,6 @@ const Dashboard = () => {
                 value={searchTerm}
                 onChange={e=>setSearchTerm(e.target.value)}
               />
-
 
               <select value={filterStatus} onChange={e=>setFilterStatus(e.target.value)}>
 
@@ -187,9 +177,6 @@ const Dashboard = () => {
               </select>
 
             </div>
-
-
-            {/* Table */}
 
             <div className="leads-list">
 
@@ -263,8 +250,6 @@ const Dashboard = () => {
       </div>
 
 
-      {/* VIEW MODAL */}
-
       {showModal && selectedLead && (
 
         <div className="modal-overlay">
@@ -287,59 +272,6 @@ const Dashboard = () => {
       )}
 
 
-      {/* ADD MODAL */}
-
-      {/* {showAddModal && (
-
-        <div className="modal-overlay">
-
-          <div className="modal-box">
-
-            <h3>Add New Lead</h3>
-
-            <input
-              type="text"
-              placeholder="Name"
-              value={newLead.name}
-              onChange={(e)=>setNewLead({...newLead,name:e.target.value})}
-            />
-
-            <input
-              type="text"
-              placeholder="Contact Info"
-              value={newLead.contactInfo}
-              onChange={(e)=>setNewLead({...newLead,contactInfo:e.target.value})}
-            />
-
-            <input
-              type="text"
-              placeholder="Property Address"
-              value={newLead.propertyAddress}
-              onChange={(e)=>setNewLead({...newLead,propertyAddress:e.target.value})}
-            />
-
-            <select
-              value={newLead.status}
-              onChange={(e)=>setNewLead({...newLead,status:e.target.value})}
-            >
-
-              <option>Open</option>
-              <option>Close</option>
-              <option>Hot</option>
-              <option>Cool</option>
-
-            </select>
-
-            <button onClick={handleAddLead}>Submit</button>
-
-            <button onClick={()=>setShowAddModal(false)}>Cancel</button>
-
-          </div>
-
-        </div>
-
-      )} */}
-
     {showAddModal && (
 
   <div className="modal-overlay">
@@ -355,7 +287,6 @@ const Dashboard = () => {
         onChange={(e)=>{
           const value = e.target.value;
 
-          // allow only alphabets and spaces
           if(/^[a-zA-Z\s]*$/.test(value)){
             setNewLead({...newLead,name:value});
           }
@@ -369,7 +300,6 @@ const Dashboard = () => {
         onChange={(e)=>{
           const value = e.target.value;
 
-          // allow only numbers
           if(/^[0-9]*$/.test(value)){
             setNewLead({...newLead,contactInfo:value});
           }

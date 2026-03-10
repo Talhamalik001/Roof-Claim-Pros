@@ -1,8 +1,16 @@
 import random
 from email.message import EmailMessage
 from aiosmtplib import SMTP
-from config.settings import SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+SMTP_HOST = os.getenv("SMTP_HOST")
+SMTP_PORT = os.getenv("SMTP_PORT")
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 otp_store = {}
 
 async def send_email_otp(email, otp):

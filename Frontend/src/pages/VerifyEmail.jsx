@@ -3,12 +3,13 @@ import { useState, useRef } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function VerifyEmail() {
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  // User data passed from CreateAccount
   const { email, firstName, lastName, password } = location.state;
 
   const [code, setCode] = useState(["", "", "", "", "", ""]);
@@ -24,7 +25,6 @@ function VerifyEmail() {
       newCode[index] = value;
       setCode(newCode);
 
-      // Move to next box automatically
       if (value && index < 5) {
         inputsRef.current[index + 1].focus();
       }
@@ -33,7 +33,6 @@ function VerifyEmail() {
 
   };
 
-  // Backspace move previous
   const handleKeyDown = (e, index) => {
 
     if (e.key === "Backspace" && !code[index] && index > 0) {
@@ -56,9 +55,8 @@ function VerifyEmail() {
 
       setLoading(true);
 
-      // Verify OTP
       const res = await axios.post(
-        "http://127.0.0.1:9000/auth/verify-otp",
+        `${API_BASE_URL}/auth/verify-otp`,
         { email, otp }
       );
 
@@ -67,9 +65,8 @@ function VerifyEmail() {
         return;
       }
 
-      // Register User
       await axios.post(
-        "http://127.0.0.1:9000/auth/register",
+        `${API_BASE_URL}/auth/register`,
         { firstName, lastName, email, password }
       );
 
@@ -110,7 +107,7 @@ function VerifyEmail() {
       setLoading(true);
 
       await axios.post(
-        "http://127.0.0.1:9000/auth/send-otp",
+        `${API_BASE_URL}/auth/send-otp`,
         { email }
       );
 
@@ -142,7 +139,6 @@ function VerifyEmail() {
           Enter the 6 digit code we sent to your inbox ({email})
         </p>
 
-
         <div className="code-inputs">
 
           {code.map((digit, index) => (
@@ -160,7 +156,6 @@ function VerifyEmail() {
 
         </div>
 
-
         <p className="resend">
 
           Didn't get the code?{" "}
@@ -173,7 +168,6 @@ function VerifyEmail() {
           </span>
 
         </p>
-
 
         <button
           className="primary-btn"
