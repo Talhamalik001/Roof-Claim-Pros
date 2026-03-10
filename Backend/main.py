@@ -12,15 +12,23 @@ from routes.auth_routes import router as auth_router
 from routes.google_auth import router as google_router
 from routes.facebook_auth import router as facebook_router  # Import Facebook router
 from routes.instagram_auth import router as instagram_router
-app = FastAPI(title="RoofClaimPros Backend")
 
-# ---------------- CORS ----------------
+
+load_dotenv()
+
+app = FastAPI()
+
+origins = os.getenv("CORS_ALLOW_ORIGINS", "*").split(",")
+methods = os.getenv("CORS_ALLOW_METHODS", "*").split(",")
+headers = os.getenv("CORS_ALLOW_HEADERS", "*").split(",")
+credentials = os.getenv("CORS_ALLOW_CREDENTIALS", "True") == "True"
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins for now
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=origins,
+    allow_methods=methods,
+    allow_headers=headers,
+    allow_credentials=credentials,
 )
 
 secret_key = secrets.token_hex(32)  # Secure, random key
@@ -31,19 +39,9 @@ app.include_router(auth_router, prefix="/auth")
 app.include_router(google_router, prefix="/google")
 app.include_router(facebook_router, prefix="/facebook")  # Register Facebook router
 app.include_router(instagram_router, prefix="/instagram")
-# ---------------- Root Test ----------------
-@app.get("/")
-async def root():
-    return {"message": "RoofClaimPros Backend is running"}
 
 
 
-# Lead schema
-class Lead(BaseModel):
-    name: str
-    contactInfo: str
-    propertyAddress: str
-    status: str
 
 # In-memory storage
 leads: List[Lead] = []
@@ -58,9 +56,18 @@ async def get_leads():
     return leads
 
 
+@app.put("/leads/{lead_index}")
+async def update_lead(lead_index: int, lead: Lead):
+    try:
+        leads[lead_index] = lead
+        return {"message": "Lead updated", "lead": lead}
+    except IndexError:
+        raise HTTPException(status_code=404, detail="Lead not found")
+
 @app.delete("/leads/{lead_index}")
 async def delete_lead(lead_index: int):
-    if 0 <= lead_index < len(leads):
+    try:
         deleted = leads.pop(lead_index)
         return {"message": "Lead deleted", "lead": deleted}
-    return {"error": "Lead not found"}
+    except IndexError:
+        raise HTTPException(status_code=404, detail="Lead not found")
