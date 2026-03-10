@@ -1,0 +1,304 @@
+// import "../styles/verify.css";
+// import { useState } from "react";
+// import { useLocation, useNavigate } from 'react-router-dom';
+// import axios from 'axios';
+
+// function VerifyEmail() {
+//   const location = useLocation();
+//   const navigate = useNavigate();
+  
+//   // User data passed from CreateAccount
+//   const { email, firstName, lastName, password } = location.state;
+//   const [code, setCode] = useState(["", "", "", "", "", ""]);
+//   const [loading, setLoading] = useState(false);
+
+//   const handleChange = (value, index) => {
+//     if (!isNaN(value)) {
+//       const newCode = [...code];
+//       newCode[index] = value;
+//       setCode(newCode);
+//     }
+//   };
+
+//   const handleVerify = async () => {
+//     const otp = code.join(""); // combine all digits
+//     if (otp.length !== 6) {
+//       alert("Please enter a 6-digit OTP");
+//       return;
+//     }
+
+//     try {
+//       setLoading(true);
+
+//       // 1️⃣ Verify OTP
+//       const res = await axios.post("http://127.0.0.1:9000/auth/verify-otp", { email, otp });
+//       if (res.data.status !== "success") {
+//         alert("Invalid OTP. Please try again.");
+//         return;
+//       }
+
+//       // 2️⃣ Register the user
+//       await axios.post("http://127.0.0.1:9000/auth/register", { firstName, lastName, email, password });
+
+//       alert("OTP verified and account created successfully!");
+//       navigate("/notification"); // go to login screen
+
+//     } catch (err) {
+//       console.error(err);
+//       alert(err.response?.data?.detail || "Error verifying OTP or registering user.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleResend = async () => {
+//     try {
+//       setLoading(true);
+//       await axios.post("http://127.0.0.1:9000/auth/send-otp", { email });
+//       alert("OTP resent to your email!");
+//     } catch (err) {
+//       console.error(err);
+//       alert("Error resending OTP.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div className="verify-wrapper">
+//       <div className="verify-card">
+//         <h2>Verify your email</h2>
+//         <p className="subtitle">
+//           Enter the 6 digit code we sent to your inbox ({email})
+//         </p>
+
+//         <div className="code-inputs">
+//           {code.map((digit, index) => (
+//             <input
+//               key={index}
+//               maxLength="1"
+//               value={digit}
+//               onChange={(e) => handleChange(e.target.value, index)}
+//             />
+//           ))}
+//         </div>
+
+//         <p className="resend">
+//           Didn't get the code? <span style={{cursor:"pointer", color:"blue"}} onClick={handleResend}>Resend it</span>
+//         </p>
+
+//         <button 
+//           className="primary-btn"
+//           onClick={handleVerify}
+//           disabled={loading}
+//         >
+//           {loading ? "Verifying..." : "Continue"}
+          
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default VerifyEmail;
+
+// // 12345678QWERqwe!@#$
+
+
+
+import "../styles/verify.css";
+import { useState, useRef } from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+function VerifyEmail() {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // User data passed from CreateAccount
+  const { email, firstName, lastName, password } = location.state;
+
+  const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const [loading, setLoading] = useState(false);
+
+  const inputsRef = useRef([]);
+
+  const handleChange = (value, index) => {
+
+    if (!isNaN(value)) {
+
+      const newCode = [...code];
+      newCode[index] = value;
+      setCode(newCode);
+
+      // Move to next box automatically
+      if (value && index < 5) {
+        inputsRef.current[index + 1].focus();
+      }
+
+    }
+
+  };
+
+  // Backspace move previous
+  const handleKeyDown = (e, index) => {
+
+    if (e.key === "Backspace" && !code[index] && index > 0) {
+      inputsRef.current[index - 1].focus();
+    }
+
+  };
+
+
+  const handleVerify = async () => {
+
+    const otp = code.join("");
+
+    if (otp.length !== 6) {
+      alert("Please enter a 6-digit OTP");
+      return;
+    }
+
+    try {
+
+      setLoading(true);
+
+      // Verify OTP
+      const res = await axios.post(
+        "http://127.0.0.1:9000/auth/verify-otp",
+        { email, otp }
+      );
+
+      if (res.data.status !== "success") {
+        alert("Invalid OTP. Please try again.");
+        return;
+      }
+
+      // Register User
+      await axios.post(
+        "http://127.0.0.1:9000/auth/register",
+        { firstName, lastName, email, password }
+      );
+
+      alert("OTP verified and account created successfully!");
+
+      navigate("/notification");
+
+    } catch (err) {
+
+      const message = err.response?.data?.detail;
+
+      if (message === "User already exists") {
+
+        alert("Account already exists. Please login.");
+        navigate("/");
+
+      } else {
+
+        alert(message || "Error verifying OTP or registering user.");
+
+      }
+
+      console.error(err);
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
+  };
+
+
+  const handleResend = async () => {
+
+    try {
+
+      setLoading(true);
+
+      await axios.post(
+        "http://127.0.0.1:9000/auth/send-otp",
+        { email }
+      );
+
+      alert("OTP resent to your email!");
+
+    } catch (err) {
+
+      console.error(err);
+      alert("Error resending OTP.");
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
+  };
+
+
+  return (
+
+    <div className="verify-wrapper">
+
+      <div className="verify-card">
+
+        <h2>Verify your email</h2>
+
+        <p className="subtitle">
+          Enter the 6 digit code we sent to your inbox ({email})
+        </p>
+
+
+        <div className="code-inputs">
+
+          {code.map((digit, index) => (
+
+            <input
+              key={index}
+              maxLength="1"
+              value={digit}
+              ref={(el) => (inputsRef.current[index] = el)}
+              onChange={(e) => handleChange(e.target.value, index)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+            />
+
+          ))}
+
+        </div>
+
+
+        <p className="resend">
+
+          Didn't get the code?{" "}
+
+          <span
+            style={{ cursor: "pointer", color: "blue" }}
+            onClick={handleResend}
+          >
+            Resend it
+          </span>
+
+        </p>
+
+
+        <button
+          className="primary-btn"
+          onClick={handleVerify}
+          disabled={loading}
+        >
+
+          {loading ? "Verifying..." : "Continue"}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  );
+
+}
+
+export default VerifyEmail;

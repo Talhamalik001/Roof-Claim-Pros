@@ -1,0 +1,93 @@
+.notification-prompt-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+  background-color: #f5f7fb;
+}
+
+.content-container {
+    
+  background-color: rgba(255, 255, 255, 0.9); /* Light background with transparency */
+  padding: 40px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 14px;
+  color: #666;
+}
+
+.notification-box {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification-logo {
+  height: 40px;
+  margin-right: 15px;
+}
+
+.notification-message {
+  font-size: 14px;
+  color: #333;
+  flex: 1;
+}
+
+.buttons-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.enable-btn,
+.maybe-btn {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+
+.enable-btn {
+  background-color: #4caf50; /* Green button for enabling notifications */
+  color: white;
+}
+
+.enable-btn:hover {
+  background-color: #45a049;
+}
+
+.maybe-btn {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.maybe-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.settings-note {
+  font-size: 12px;
+  color: #888;
+  margin-top: 15px;
+}

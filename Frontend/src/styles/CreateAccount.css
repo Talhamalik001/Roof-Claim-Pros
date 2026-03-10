@@ -1,0 +1,131 @@
+.create-account-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  display:  flex;
+  
+  background-color: #6897f5;
+  background: linear-gradient(135deg, #cce7ff, #eaf6ff); /* Light background color */
+}
+
+.form-container {
+  background-color: white;
+  padding: 30px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  border-radius: 30px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #1a1a1a; /* Dark text for the heading */
+}
+
+
+input {
+  color: #1d0ac9; /* Dark text for input fields */
+  width: 90%;
+ 
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 20px;
+  border-radius: 18px;
+  background-color: #f7f7f7; /* Light gray input field */
+}
+
+input:focus {
+  border-color: #4caf50; /* Green border on focus */
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: rgb(44, 173, 224); /* Green button */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+p {
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+}
+.termss {
+  font-size: 14px;
+  color: #666;
+  margin-left: 40px;
+}
+.terms {
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+}
+
+
+.terms label {
+  display: inline;
+  margin-left: 5px;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.social-btn {
+  width: 30%;
+  height: 45px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+
+.social-btn img {
+  height: 25px;
+  width: auto;
+  margin-right: 10px; /* Space between the icon and text */
+}
+
+.google-btn {
+  background-color: #db4437; /* Google red */
+}
+
+.google-btn:hover {
+  background-color: #c1351d; /* Darker red on hover */
+}
+
+.facebook-btn {
+  background-color: #3b5998; /* Facebook blue */
+}
+
+.facebook-btn:hover {
+  background-color: #2d4373; /* Darker blue on hover */
+}
+
+.apple-btn {
+  background-color: #000; /* Apple black */
+}
+
+.apple-btn:hover {
+  background-color: #333; /* Darker black on hover */
+}
